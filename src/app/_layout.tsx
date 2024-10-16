@@ -49,7 +49,12 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider
+    // this changes selects theme according to teme of devoce being used
+    // value={DefaultTheme}
+    value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+    
+    >
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
