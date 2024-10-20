@@ -5,6 +5,7 @@ import { Stack, useLocalSearchParams } from 'expo-router'
 import products from '@/assets/data/products';
 import { PizzaSize } from '@/src/types';
 import Button from '@/src/components/Button';
+import { useCart } from '@/src/providers/CartProvider';
 
 const ProductDetailScreen = () => {
   // get id
@@ -19,9 +20,12 @@ const ProductDetailScreen = () => {
   if (!product) {
     return <Text> Product does not exist </Text>
   }
+
+  const {addItem} = useCart();
+
   const addToCart = () => {
     if (!product) return;
-    console.warn('Add to cart' + selectedSize);
+    addItem(product, selectedSize)
   }
   return (
     <View style={styles.container}>
