@@ -1,7 +1,7 @@
 
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Image, Pressable, ScrollView } from 'react-native'
 import React, { useState } from 'react'
-import { Stack, useLocalSearchParams } from 'expo-router'
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router'
 import products from '@/assets/data/products';
 import { PizzaSize } from '@/src/types';
 import Button from '@/src/components/Button';
@@ -15,6 +15,7 @@ const ProductDetailScreen = () => {
   const defaultPizzaImage = ''
   const sizes: PizzaSize[] = ['S', 'M', 'L', 'XL'];
   const [selectedSize, setSelectedSize] = useState<PizzaSize>('S')
+  const router = useRouter();
 
 
   if (!product) {
@@ -26,9 +27,10 @@ const ProductDetailScreen = () => {
   const addToCart = () => {
     if (!product) return;
     addItem(product, selectedSize)
+    router.push('/cart')
   }
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Stack.Screen options={{ title: product.name }} />
       <Image
         source={{ uri: product.image || defaultPizzaImage }}
@@ -64,7 +66,7 @@ const ProductDetailScreen = () => {
       </View>
       <Text style={styles.price}>Price: ${product.price.toFixed(2)}</Text>
       <Button onPress={addToCart} text = "Add to cart" />
-    </View>
+    </ScrollView>
   )
 }
 
